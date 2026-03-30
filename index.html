@@ -610,7 +610,7 @@
     <!-- RESUME -->
     <div class="section-label">// 03 — Upload Resume</div>
     <div class="field full" style="margin-bottom:24px;">
-      <label>Resume / CV <span style="color:rgba(0,255,180,0.6);font-size:11px;">Step 1: Upload karo → Step 2: Form submit karo</span></label>
+      <label>Resume / CV <span style="color:var(--muted);font-size:10px;">(PDF, DOC — Max 5MB)</span></label>
       
       <!-- Uploadcare Widget -->
       <div class="uploadcare-wrapper">
@@ -689,7 +689,7 @@
 
 </div><!-- /page-wrapper -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // ── CONFIG: Paste your Google Apps Script Web App URL here ──
   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw3be5avAHHKTD2fmoz-_okllS5cKVQa6q6mCwOb95pF45X_d9vzX3NWdHyztZaMxQY/exec";
 
@@ -718,7 +718,7 @@
     });
   });
 
-  async function handleSubmit() {
+  window.handleSubmit = async function() {
     const name    = document.getElementById('inp-name').value.trim();
     const email   = document.getElementById('inp-email').value.trim();
     const phone   = document.getElementById('inp-phone').value.trim();
