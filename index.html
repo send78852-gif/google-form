@@ -689,12 +689,11 @@
 
 </div><!-- /page-wrapper -->
 
+<!-- ONLY SCRIPT PART UPDATED BELOW -->
 <script>
-  // ── CONFIG: Paste your Google Apps Script Web App URL here ──
+  // ── CONFIG ──
   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw3be5avAHHKTD2fmoz-_okllS5cKVQa6q6mCwOb95pF45X_d9vzX3NWdHyztZaMxQY/exec";
 
-
-  // Uploadcare widget setup
   let resumeUploadedUrl = '';
   let resumeFileName = '';
   let ucWidget = null;
@@ -718,6 +717,25 @@
     });
   });
 
+  // ✅ ERROR FUNCTION (FIXED)
+  function setError(fieldId, condition) {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+
+    if (condition) {
+      field.classList.add('has-error');
+      field.querySelector('input, select')?.classList.add('error');
+    } else {
+      field.classList.remove('has-error');
+      field.querySelector('input, select')?.classList.remove('error');
+    }
+  }
+
+  // ✅ REF ID GENERATOR (FIXED)
+  function generateRefId() {
+    return 'CNX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
   window.handleSubmit = async function() {
     const name    = document.getElementById('inp-name').value.trim();
     const email   = document.getElementById('inp-email').value.trim();
@@ -730,19 +748,39 @@
     const terms   = document.getElementById('terms-cb').checked;
 
     let valid = true;
-    setError('f-name',    !name);               if (!name) valid = false;
-    setError('f-email',   !/\S+@\S+\.\S+/.test(email)); if (!/\S+@\S+\.\S+/.test(email)) valid = false;
-    setError('f-phone',   phone.replace(/\D/g,'').length < 10); if (phone.replace(/\D/g,'').length < 10) valid = false;
-    setError('f-year',    !year);                if (!year) valid = false;
-    setError('f-college', !college);             if (!college) valid = false;
-    setError('f-city',    !city);                if (!city) valid = false;
-    setError('f-state',   !state);               if (!state) valid = false;
+
+    // ✅ VALIDATION
+    setError('f-name', !name);
+    setError('f-email', !/\S+@\S+\.\S+/.test(email));
+    setError('f-phone', !/^[6-9]\d{9}$/.test(phone.replace(/\D/g,'')));
+    setError('f-year', !year);
+    setError('f-college', !college);
+    setError('f-city', !city);
+    setError('f-state', !state);
+
+    if (!name || !/\S+@\S+\.\S+/.test(email) || !/^[6-9]\d{9}$/.test(phone.replace(/\D/g,'')) || !year || !college || !city || !state) {
+      valid = false;
+    }
 
     const domainErr = document.getElementById('domain-err');
-    if (!domain) { domainErr.style.display = 'block'; valid = false; }
-    else domainErr.style.display = 'none';
+    if (!domain) {
+      domainErr.style.display = 'block';
+      valid = false;
+    } else {
+      domainErr.style.display = 'none';
+    }
 
-    if (!terms) { alert('Please accept the Terms & Conditions.'); valid = false; }
+    if (!terms) {
+      alert('Please accept the Terms & Conditions.');
+      valid = false;
+    }
+
+    // ✅ Resume required
+    if (!resumeUploadedUrl) {
+      alert('Please upload your resume');
+      valid = false;
+    }
+
     if (!valid) {
       document.querySelector('.has-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
@@ -755,26 +793,12 @@
     const refId = generateRefId();
     const timestamp = new Date().toLocaleString('en-IN');
 
-    // Get resume URL from widget at submit time (backup)
-    let finalResumeUrl = resumeUploadedUrl;
-    let finalResumeName = resumeFileName;
-    if (!finalResumeUrl && ucWidget) {
-      try {
-        const fileInfo = await ucWidget.value();
-        if (fileInfo) {
-          finalResumeUrl = fileInfo.cdnUrl || '';
-          finalResumeName = fileInfo.name || '';
-        }
-      } catch(e) {}
-    }
-
-    // Save to Google Sheet
     const payload = {
       timestamp, refId, name, email, phone,
       college, year, city, state,
       domain: domain.value,
-      resumeLink: finalResumeUrl || 'Not uploaded',
-      resumeName: finalResumeName || 'Not uploaded'
+      resumeLink: resumeUploadedUrl,
+      resumeName: resumeFileName
     };
 
     try {
@@ -785,19 +809,21 @@
         body: JSON.stringify(payload)
       });
     } catch(e) {
-      console.warn('Sheet note:', e);
+      console.warn('Error:', e);
     }
 
+    // small delay for UX
     await new Promise(r => setTimeout(r, 1000));
 
     document.getElementById('formCard').style.display = 'none';
     const success = document.getElementById('successScreen');
     success.classList.add('show');
     document.getElementById('refCode').textContent = 'REF-ID: ' + refId;
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-    // Remove error on inp
+  // ✅ Remove error on typing
   document.querySelectorAll('input, select').forEach(el => {
     el.addEventListener('input', () => {
       el.classList.remove('error');
