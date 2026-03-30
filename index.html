@@ -798,3 +798,12 @@
   }
 
     // Remove error on inp
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => {
+      el.classList.remove('error');
+      el.closest('.field')?.classList.remove('has-error');
+    });
+  });
+</script>
+</body>
+</html>
