@@ -697,20 +697,22 @@
   // Uploadcare widget setup
   let resumeUploadedUrl = '';
   let resumeFileName = '';
+  let ucWidget = null;
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-    widget.onChange(function(file) {
+  window.addEventListener('load', function() {
+    ucWidget = uploadcare.Widget('[role=uploadcare-uploader]');
+    ucWidget.onChange(function(file) {
       if (file) {
-        document.getElementById('uploadStatus').textContent = '⏳ Uploading...';
-        document.getElementById('fileTitle').textContent = 'Uploading resume...';
+        document.getElementById('fileTitle').textContent = '⏳ Uploading...';
         file.promise().then(function(fileInfo) {
           resumeUploadedUrl = fileInfo.cdnUrl;
           resumeFileName = fileInfo.name;
-          document.getElementById('uploadStatus').textContent = '✅ Resume uploaded!';
           document.getElementById('fileTitle').textContent = '📄 ' + fileInfo.name;
           document.getElementById('ucBox').style.borderColor = 'rgba(0,255,180,0.5)';
           document.getElementById('ucBox').style.borderStyle = 'solid';
+        }).catch(function(err) {
+          console.warn('Upload error:', err);
+          document.getElementById('fileTitle').textContent = 'Click to upload your Resume';
         });
       }
     });
@@ -753,13 +755,26 @@
     const refId = generateRefId();
     const timestamp = new Date().toLocaleString('en-IN');
 
+    // Get resume URL from widget at submit time (backup)
+    let finalResumeUrl = resumeUploadedUrl;
+    let finalResumeName = resumeFileName;
+    if (!finalResumeUrl && ucWidget) {
+      try {
+        const fileInfo = await ucWidget.value();
+        if (fileInfo) {
+          finalResumeUrl = fileInfo.cdnUrl || '';
+          finalResumeName = fileInfo.name || '';
+        }
+      } catch(e) {}
+    }
+
     // Save to Google Sheet
     const payload = {
       timestamp, refId, name, email, phone,
       college, year, city, state,
       domain: domain.value,
-      resumeLink: resumeUploadedUrl || 'Not uploaded',
-      resumeName: resumeFileName || 'Not uploaded'
+      resumeLink: finalResumeUrl || 'Not uploaded',
+      resumeName: finalResumeName || 'Not uploaded'
     };
 
     try {
