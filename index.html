@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Internship 2026 — Apply Now | Codenixia</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ffb4;
+    --blue: #0066ff;
+    --dark: #020813;
+    --card: #080f1e;
+    --border: rgba(0,255,180,0.15);
+    --text: rgba(255,255,255,0.85);
+    --muted: rgba(255,255,255,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: var(--dark);
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ── */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,255,180,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,180,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridMove 10s linear infinite;
+  }
+  @keyframes gridMove { to { background-position: 48px 48px; } }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+  .orb1 { width: 600px; height: 600px; background: #00ffb4; opacity: 0.07; top: -200px; left: -200px; }
+  .orb2 { width: 500px; height: 500px; background: #0066ff; opacity: 0.08; bottom: -150px; right: -150px; }
+
+  /* ── LAYOUT ── */
+  .page-wrapper {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 16px 60px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .company-bar {
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 6px;
+  }
+  .company-logo {
+    height: 56px; max-width: 260px; object-fit: contain;
+    filter: brightness(1.1) drop-shadow(0 0 12px rgba(0,255,180,0.25));
+  }
+  .company-tagline {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; color: rgba(0,255,180,0.55);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .contact-strip {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; margin-top: 16px;
+  }
+  .contact-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 12px; color: rgba(255,255,255,0.55);
+    text-decoration: none; letter-spacing: 0.5px; transition: all 0.2s;
+    font-family: 'Rajdhani', sans-serif; font-weight: 600;
+  }
+  .contact-pill:hover { border-color: rgba(0,255,180,0.4); color: var(--green); background: rgba(0,255,180,0.06); }
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-20px); } to { opacity:1; transform: translateY(0); } }
+
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,255,180,0.07);
+    border: 1px solid rgba(0,255,180,0.3);
+    border-radius: 2px;
+    padding: 6px 18px;
+    margin-bottom: 18px;
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    background: #00ffb4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .live-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; color: var(--green);
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .grad-text {
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header p {
+    font-size: 16px; color: var(--muted);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    width: 100%; max-width: 700px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 40px 44px;
+    position: relative;
+    animation: fadeUp 0.7s ease both 0.1s;
+    box-shadow: 0 0 60px rgba(0,255,180,0.04), 0 0 120px rgba(0,102,255,0.04);
+  }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+  /* corner accents */
+  .form-card::before, .form-card::after {
+    content: '';
+    position: absolute;
+    width: 28px; height: 28px;
+  }
+  .form-card::before {
+    top: -1px; left: -1px;
+    border-top: 2px solid var(--green);
+    border-left: 2px solid var(--green);
+    border-radius: 4px 0 0 0;
+  }
+  .form-card::after {
+    bottom: -1px; right: -1px;
+    border-bottom: 2px solid var(--blue);
+    border-right: 2px solid var(--blue);
+    border-radius: 0 0 4px 0;
+  }
+
+  /* section label */
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: rgba(0,255,180,0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,255,180,0.2), transparent);
+  }
+
+  /* form grid */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .form-grid .full { grid-column: 1 / -1; }
+
+  /* field */
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .field label span { color: #ff4d6d; margin-left: 2px; }
+
+  .field input, .field select {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+  .field input::placeholder { color: rgba(255,255,255,0.2); }
+  .field input:focus, .field select:focus {
+    border-color: rgba(0,255,180,0.5);
+    background: rgba(0,255,180,0.04);
+    box-shadow: 0 0 0 3px rgba(0,255,180,0.07);
+  }
+  .field input.error, .field select.error {
+    border-color: rgba(255,77,109,0.6);
+    box-shadow: 0 0 0 3px rgba(255,77,109,0.07);
+  }
+  .field .err-msg {
+    font-size: 11px;
+    color: #ff4d6d;
+    letter-spacing: 0.5px;
+    display: none;
+  }
+  .field.has-error .err-msg { display: block; }
+
+  /* select arrow */
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    font-size: 13px;
+  }
+  .select-wrap select { padding-right: 36px; }
+  .select-wrap select option { background: #0a1220; color: #fff; }
+
+  /* Uploadcare wrapper */
+  .uploadcare-wrapper { position: relative; }
+  .uc-box {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 14px 16px;
+    flex-wrap: wrap;
+  }
+  .file-icon {
+    width: 36px; height: 36px;
+    background: rgba(0,255,180,0.08);
+    border: 1px solid rgba(0,255,180,0.2);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .file-info { flex: 1; }
+  .file-title {
+    font-size: 14px; font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    display: block; margin-bottom: 2px;
+  }
+  .file-sub {
+    font-size: 11px; color: var(--muted);
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  /* Style uploadcare button */
+  .uploadcare--widget { margin-top: 10px; width: 100%; }
+  .uploadcare--widget__button {
+    background: linear-gradient(135deg, #00ffb4, #00cc8f) !important;
+    color: #020813 !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    border: none !important;
+    border-radius: 3px !important;
+    padding: 10px 20px !important;
+    cursor: pointer !important;
+    box-shadow: 0 0 16px rgba(0,255,180,0.3) !important;
+  }
+  .uploadcare--widget__button:hover {
+    box-shadow: 0 0 24px rgba(0,255,180,0.5) !important;
+  }
+  .file-input { display: none; }
+
+  /* domain grid */
+  .domain-section { margin-bottom: 24px; }
+  .domain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+  .domain-option { display: none; }
+  .domain-chip {
+    display: flex; align-items: center; gap: 9px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .domain-chip:hover {
+    border-color: rgba(0,255,180,0.3);
+    background: rgba(0,255,180,0.04);
+  }
+  .domain-option:checked + .domain-chip {
+    border-color: var(--green);
+    background: rgba(0,255,180,0.1);
+    box-shadow: 0 0 12px rgba(0,255,180,0.1);
+  }
+  .domain-option:checked + .domain-chip .d-check {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .domain-option:checked + .domain-chip .d-check::after { opacity: 1; }
+  .d-check {
+    width: 16px; height: 16px; flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .d-check::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #020813;
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .d-emoji { font-size: 14px; }
+  .d-name {
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.2px;
+  }
+
+  /* divider */
+  .sec-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,180,0.15), rgba(0,102,255,0.1), transparent);
+    margin: 24px 0;
+  }
+
+  /* terms */
+  .terms-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 28px;
+  }
+  .terms-cb { display: none; }
+  .terms-box {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 3px; cursor: pointer;
+    position: relative; margin-top: 1px;
+    transition: all 0.2s;
+  }
+  .terms-cb:checked + .terms-box {
+    background: var(--green); border-color: var(--green);
+  }
+  .terms-cb:checked + .terms-box::after {
+    content: '✓'; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #020813; font-weight: 900;
+  }
+  .terms-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .terms-text a { color: var(--green); text-decoration: none; }
+
+  /* submit button */
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #00ffb4, #00cc8f);
+    color: #020813;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    padding: 18px 32px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+  .submit-btn:hover::before { transform: translateX(100%); }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,255,180,0.4);
+  }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled {
+    opacity: 0.5; cursor: not-allowed;
+    transform: none; box-shadow: none;
+  }
+
+  /* loading state */
+  .btn-loader { display: none; }
+  .submit-btn.loading .btn-text { display: none; }
+  .submit-btn.loading .btn-loader { display: inline-block; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* stats bar */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 40px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--green); display: block;
+  }
+  .stat-lbl {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* ── SUCCESS SCREEN ── */
+  .success-screen {
+    display: none;
+    width: 100%; max-width: 700px;
+    text-align: center;
+    animation: fadeUp 0.5s ease both;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 80px; height: 80px;
+    background: rgba(0,255,180,0.1);
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 24px;
+    box-shadow: 0 0 40px rgba(0,255,180,0.2);
+    animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes successPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+  .success-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px; font-weight: 900; margin-bottom: 12px;
+  }
+  .success-sub { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .success-code {
+    background: rgba(0,255,180,0.07);
+    border: 1px solid rgba(0,255,180,0.2);
+    border-radius: 4px;
+    padding: 14px 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px; color: var(--green);
+    letter-spacing: 2px; display: inline-block; margin-bottom: 28px;
+  }
+
+  /* responsive */
+  @media (max-width: 600px) {
+    .form-card { padding: 28px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .domain-grid { grid-template-columns: 1fr 1fr; }
+    .stats-bar { gap: 24px; }
+  }
+</style>
+  <!-- Uploadcare Widget -->
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <script>UPLOADCARE_PUBLIC_KEY = "a50f2db4e92f267e33b9";</script>
+  <script>UPLOADCARE_LOCALE = "en";</script>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="company-bar">
+      <img src="https://codenixia.com/wp-content/uploads/2025/09/cropped-codenixia-logo1.png"
+           alt="Codenixia" class="company-logo"
+           onerror="this.style.display='none';document.getElementById('cn-fallback').style.display='block'">
+      <span id="cn-fallback" style="display:none;font-family:'Orbitron',sans-serif;font-size:26px;font-weight:900;background:linear-gradient(90deg,#00ffb4,#0066ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CODENIXIA</span>
+    </div>
+    <p class="company-tagline">Code to Cosmic Intelligence</p>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span class="live-text">Applications Open · Summer 2026</span>
+    </div>
+    <h1>
+      <span class="grad-text">Summer Internship</span><br>
+      <span style="color:#fff;">Registration Form</span>
+    </h1>
+    <p style="margin-top:10px;">Real Skills · Real Projects · Real Growth</p>
+    <div class="contact-strip">
+      <a href="/cdn-cgi/l/email-protection#9cf5f2faf3dcfff3f8f9f2f5e4f5fdb2fff3f1" class="contact-pill">✉️ <span class="__cf_email__" data-cfemail="6a03040c052a09050e0f040312030b44090507">[email&#160;protected]</span></a>
+      <a href="tel:+919135069000" class="contact-pill">📞 +91-9135069000</a>
+      <a href="https://codenixia.com" target="_blank" class="contact-pill">🌐 codenixia.com</a>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" id="formCard">
+
+    <div class="section-label">// 01 — Personal Details</div>
+
+    <div class="form-grid">
+      <div class="field" id="f-name">
+        <label>Full Name <span>*</span></label>
+        <input type="text" id="inp-name" placeholder="Enter your full name">
+        <span class="err-msg">Please enter your full name</span>
+      </div>
+      <div class="field" id="f-email">
+        <label>Email Address <span>*</span></label>
+        <input type="email" id="inp-email" placeholder="you@example.com">
+        <span class="err-msg">Please enter a valid email</span>
+      </div>
+      <div class="field" id="f-phone">
+        <label>Phone Number <span>*</span></label>
+        <input type="tel" id="inp-phone" placeholder="+91 XXXXX XXXXX" maxlength="13">
+        <span class="err-msg">Enter a valid 10-digit number</span>
+      </div>
+      <div class="field" id="f-year">
+        <label>Year of Study <span>*</span></label>
+        <div class="select-wrap">
+          <select id="inp-year">
+            <option value="" disabled selected>Select Year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+            <option value="Passed Out">Passed Out / Graduate</option>
+          </select>
+        </div>
+        <span class="err-msg">Please select your year</span>
+      </div>
+      <div class="field full" id="f-college">
+        <label>College / University Name <span>*</span></label>
+        <input type="text" id="inp-college" placeholder="Enter your college name">
+        <span class="err-msg">Please enter your college name</span>
+      </div>
+      <div class="field" id="f-city">
+        <label>City <span>*</span></label>
+        <input type="text" id="inp-city" placeholder="e.g. Mumbai">
+        <span class="err-msg">Please enter your city</span>
+      </div>
+      <div class="field" id="f-state">
+        <label>State <span>*</span></label>
+        <div class="select-wrap">
+          <select id="inp-state">
+            <option value="" disabled selected>Select State</option>
+            <option>Andhra Pradesh</option><option>Assam</option>
+            <option>Bihar</option><option>Chhattisgarh</option>
+            <option>Delhi</option><option>Goa</option>
+            <option>Gujarat</option><option>Haryana</option>
+            <option>Himachal Pradesh</option><option>Jharkhand</option>
+            <option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option>
+            <option>Odisha</option><option>Punjab</option>
+            <option>Rajasthan</option><option>Tamil Nadu</option>
+            <option>Telangana</option><option>Uttar Pradesh</option>
+            <option>Uttarakhand</option><option>West Bengal</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <span class="err-msg">Please select your state</span>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- DOMAIN SELECTION -->
+    <div class="domain-section">
+      <div class="section-label">// 02 — Choose Your Domain <span style="color:var(--muted);margin-left:8px;letter-spacing:1px;font-size:9px;">(SELECT ONE)</span></div>
+      <div class="domain-grid" id="domainGrid">
+        <label><input type="radio" name="domain" value="Python Programming" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🐍</span><span class="d-name">Python Programming</span></div></label>
+        <label><input type="radio" name="domain" value="Java Programming" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">☕</span><span class="d-name">Java Programming</span></div></label>
+        <label><input type="radio" name="domain" value="Linux System Admin" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🐧</span><span class="d-name">Linux Sys Admin</span></div></label>
+        <label><input type="radio" name="domain" value="Cyber Security" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🔒</span><span class="d-name">Cyber Security</span></div></label>
+        <label><input type="radio" name="domain" value="Server Administration" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🖥️</span><span class="d-name">Server Admin</span></div></label>
+        <label><input type="radio" name="domain" value="AWS Cloud" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">☁️</span><span class="d-name">AWS Cloud</span></div></label>
+        <label><input type="radio" name="domain" value="Data Analyst" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">📊</span><span class="d-name">Data Analyst</span></div></label>
+        <label><input type="radio" name="domain" value="Ansible Automation" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">⚙️</span><span class="d-name">Ansible</span></div></label>
+        <label><input type="radio" name="domain" value="Containerization (Docker/K8s)" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🐳</span><span class="d-name">Containerization</span></div></label>
+        <label><input type="radio" name="domain" value="GitLab CI/CD" class="domain-option"><div class="domain-chip"><div class="d-check"></div><span class="d-emoji">🦊</span><span class="d-name">GitLab CI/CD</span></div></label>
+        <label><input type="radio" name="domain" value="DevOps Engineering" class="domain-option"><div class="domain-chip" style="border-color:rgba(0,255,180,0.25);"><div class="d-check"></div><span class="d-emoji">🚀</span><span class="d-name">DevOps Engineering 🔥</span></div></label>
+      </div>
+      <p id="domain-err" style="font-size:11px;color:#ff4d6d;margin-top:8px;display:none;">Please select a domain</p>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- RESUME -->
+    <div class="section-label">// 03 — Upload Resume</div>
+    <div class="field full" style="margin-bottom:24px;">
+      <label>Resume / CV <span style="color:rgba(0,255,180,0.6);font-size:11px;">Step 1: Upload karo → Step 2: Form submit karo</span></label>
+      
+      <!-- Uploadcare Widget -->
+      <div class="uploadcare-wrapper">
+        <div class="uc-box" id="ucBox">
+          <div class="file-icon">📎</div>
+          <div class="file-info">
+            <span class="file-title" id="fileTitle">Click to upload your Resume</span>
+            <span class="file-sub">PDF · DOC · DOCX · Max 5 MB · Permanent Storage</span>
+          </div>
+          <span id="uploadStatus" style="font-size:12px;color:#00ffb4;font-family:'Share Tech Mono',monospace;display:block;margin-top:4px;"></span>
+        </div>
+        <input type="hidden" role="uploadcare-uploader"
+               id="inp-resume"
+               data-public-key="a50f2db4e92f267e33b9"
+               data-tabs="file"
+               data-accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+               data-max-size="5242880"
+               data-preview-step="true"
+               name="resume" />
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- TERMS -->
+    <div class="terms-row">
+      <input type="checkbox" id="terms-cb" class="terms-cb">
+      <label for="terms-cb" class="terms-box"></label>
+      <p class="terms-text">
+        I confirm that all information provided is accurate. I agree to be contacted regarding the internship program and I accept the
+        <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.
+      </p>
+    </div>
+
+    <!-- SUBMIT -->
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+      <span class="btn-text">🚀 &nbsp; Submit Application</span>
+      <span class="btn-loader">⏳</span>
+    </button>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-num">11</span>
+        <span class="stat-lbl">Domains</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">🏅</span>
+        <span class="stat-lbl">Certified</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">24/7</span>
+        <span class="stat-lbl">Support</span>
+      </div>
+    </div>
+
+  </div><!-- /form-card -->
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="form-card" style="max-width:700px;">
+      <div style="margin-bottom:16px;">
+        <img src="https://codenixia.com/wp-content/uploads/2025/09/cropped-codenixia-logo1.png" alt="Codenixia" style="height:40px;object-fit:contain;filter:brightness(1.1) drop-shadow(0 0 8px rgba(0,255,180,0.3));">
+      </div>
+      <div class="success-icon">✅</div>
+      <div class="success-title"><span class="grad-text">Application Submitted!</span></div>
+      <p class="success-sub">
+        Welcome to Codenixia! 🎉<br>
+        Your application has been received successfully.<br>
+        Our team will reach out within <strong style="color:var(--green);">24–48 hours</strong> on your registered email & phone.
+      </p>
+      <div class="success-code" id="refCode">REF-ID: Generating...</div>
+      <p style="color:var(--muted);font-size:13px;">Keep this reference ID for future correspondence.</p>
+    </div>
+  </div>
+
+</div><!-- /page-wrapper -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── CONFIG: Paste your Google Apps Script Web App URL here ──
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw3be5avAHHKTD2fmoz-_okllS5cKVQa6q6mCwOb95pF45X_d9vzX3NWdHyztZaMxQY/exec";
+
+
+  // Uploadcare widget setup
+  let resumeUploadedUrl = '';
+  let resumeFileName = '';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+    widget.onChange(function(file) {
+      if (file) {
+        document.getElementById('uploadStatus').textContent = '⏳ Uploading...';
+        document.getElementById('fileTitle').textContent = 'Uploading resume...';
+        file.promise().then(function(fileInfo) {
+          resumeUploadedUrl = fileInfo.cdnUrl;
+          resumeFileName = fileInfo.name;
+          document.getElementById('uploadStatus').textContent = '✅ Resume uploaded!';
+          document.getElementById('fileTitle').textContent = '📄 ' + fileInfo.name;
+          document.getElementById('ucBox').style.borderColor = 'rgba(0,255,180,0.5)';
+          document.getElementById('ucBox').style.borderStyle = 'solid';
+        });
+      }
+    });
+  });
+
+  async function handleSubmit() {
+    const name    = document.getElementById('inp-name').value.trim();
+    const email   = document.getElementById('inp-email').value.trim();
+    const phone   = document.getElementById('inp-phone').value.trim();
+    const year    = document.getElementById('inp-year').value;
+    const college = document.getElementById('inp-college').value.trim();
+    const city    = document.getElementById('inp-city').value.trim();
+    const state   = document.getElementById('inp-state').value;
+    const domain  = document.querySelector('input[name="domain"]:checked');
+    const terms   = document.getElementById('terms-cb').checked;
+
+    let valid = true;
+    setError('f-name',    !name);               if (!name) valid = false;
+    setError('f-email',   !/\S+@\S+\.\S+/.test(email)); if (!/\S+@\S+\.\S+/.test(email)) valid = false;
+    setError('f-phone',   phone.replace(/\D/g,'').length < 10); if (phone.replace(/\D/g,'').length < 10) valid = false;
+    setError('f-year',    !year);                if (!year) valid = false;
+    setError('f-college', !college);             if (!college) valid = false;
+    setError('f-city',    !city);                if (!city) valid = false;
+    setError('f-state',   !state);               if (!state) valid = false;
+
+    const domainErr = document.getElementById('domain-err');
+    if (!domain) { domainErr.style.display = 'block'; valid = false; }
+    else domainErr.style.display = 'none';
+
+    if (!terms) { alert('Please accept the Terms & Conditions.'); valid = false; }
+    if (!valid) {
+      document.querySelector('.has-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    const refId = generateRefId();
+    const timestamp = new Date().toLocaleString('en-IN');
+
+    // Save to Google Sheet
+    const payload = {
+      timestamp, refId, name, email, phone,
+      college, year, city, state,
+      domain: domain.value,
+      resumeLink: resumeUploadedUrl || 'Not uploaded',
+      resumeName: resumeFileName || 'Not uploaded'
+    };
+
+    try {
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch(e) {
+      console.warn('Sheet note:', e);
+    }
+
+    await new Promise(r => setTimeout(r, 1000));
+
+    document.getElementById('formCard').style.display = 'none';
+    const success = document.getElementById('successScreen');
+    success.classList.add('show');
+    document.getElementById('refCode').textContent = 'REF-ID: ' + refId;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+    // Remove error on inp
